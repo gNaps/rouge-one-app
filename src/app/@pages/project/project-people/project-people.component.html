@@ -1,0 +1,88 @@
+<p-card header="Users">
+  @if(users()) {
+  <p-table
+    [value]="users().data"
+    [lazy]="true"
+    (onLazyLoad)="onChangePage($event)"
+    dataKey="id"
+    [rows]="size"
+    [totalRecords]="users().total"
+    [paginator]="true"
+    [loading]="loading"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="email">
+          User <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th>Role</th>
+        <th>Provider</th>
+        <th>Last login</th>
+        <th>Joined Date</th>
+        <th style="width: 4rem"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>
+          <span class="flex align-items-center gap-2">
+            <div
+              class="w-3rem h-3rem border-circle bg-primary flex justify-content-center align-items-center"
+            >
+              @if(user.firstname && user.surname) {
+              {{ user.firstname[0] + user.surname[0] }}
+              } @else {
+              {{ user.email[0].toUpperCase() + user.email[1].toUpperCase() }}
+              }
+            </div>
+            <span>
+              <p class="m-0 font-semibold">
+                {{ user.firstname }} {{ user.surname }}
+              </p>
+              <p class="m-0 text-sm text-500">{{ user.email }}</p>
+            </span>
+          </span>
+        </td>
+        <td>
+          <app-ro-chip [label]="user.role.name" />
+        </td>
+        <td>
+          {{ user.provider }}
+        </td>
+        <td>
+          {{ user.last_login | date : "dd/MM/yy HH:mm" }}
+        </td>
+        <td>
+          {{ user.created_at | date : "dd/MM/yy HH:mm" }}
+        </td>
+        <td>
+          <p-button
+            icon="pi pi-angle-down"
+            (click)="op.toggle($event)"
+            [text]="true"
+            [severity]="'secondary'"
+            label="Actions"
+            class="text-sm"
+          ></p-button>
+          <p-overlayPanel #op [style]="{ width: '160px' }">
+            <button
+              pButton
+              pRipple
+              label="Modifica"
+              class="p-button-text w-full"
+              (click)="update(user)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              label="Rimuovi"
+              class="p-button-text p-button-danger w-full"
+              (click)="remove(user)"
+            ></button>
+          </p-overlayPanel>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  }
+</p-card>

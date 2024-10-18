@@ -1,0 +1,260 @@
+<form [formGroup]="projectForm" class="flex flex-column gap-4">
+  <p-card header="Generic info">
+    <div class="flex flex-column gap-2 mb-4">
+      <label for="name">Name (*)</label>
+      <input
+        pInputText
+        id="name"
+        aria-describedby="name-help"
+        formControlName="name"
+      />
+      <small id="name-help">Enter your project name</small>
+    </div>
+    <div class="flex flex-column gap-2 mb-4">
+      <label for="name">Description</label>
+      <textarea
+        rows="5"
+        cols="30"
+        pInputTextarea
+        formControlName="description"
+      ></textarea>
+
+      <small id="description-help">Enter your project description</small>
+    </div>
+    <div class="flex flex-column gap-2 mb-4">
+      <label for="redirect_url">Redirect url (*)</label>
+      <input
+        pInputText
+        id="redirect_url"
+        aria-describedby="redirect_url-help"
+        formControlName="redirect_url"
+      />
+      <small id="redirect_url-help">
+        Inserisci l'url del redirect da effettuare dopo aver eseguito la login
+        (in genere è l'url del client web)</small
+      >
+    </div>
+  </p-card>
+
+  <!-- PROVIDER ACCORDIONS -->
+
+  <p-card header="Provider">
+    <p-accordion class="w-full">
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center w-full justify-content-bewteen">
+            <span class="flex align-items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="svg-icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              Email and password
+            </span>
+          </span>
+        </ng-template>
+        <p class="mt-0">
+          Attivando questo provider i tuoi utenti potranno accedere alla tua
+          applicazione tramite un indirizzo email e una password.
+        </p>
+        <div class="flex justify-content-center">
+          <p-inputSwitch formControlName="is_password_active"></p-inputSwitch>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center w-full justify-content-bewteen">
+            <span class="flex align-items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="svg-icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                />
+              </svg>
+              Magic link
+            </span>
+          </span>
+        </ng-template>
+        <p class="mt-0">
+          Attivando questo provider i tuoi utenti potranno accedere alla tua
+          applicazione tramite un link di autenticazione inviato alla propria
+          mail. Non verrà richiesta nessuna password.
+        </p>
+        <div class="flex justify-content-center">
+          <p-inputSwitch formControlName="is_magic_link_active"></p-inputSwitch>
+        </div>
+      </p-accordionTab>
+      <!-- GOOGLE -->
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center w-full justify-content-bewteen">
+            <span class="flex align-items-center gap-2">
+              <svg role="img" class="svg-icon">
+                <path
+                  d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                />
+              </svg>
+              Google
+            </span>
+          </span>
+        </ng-template>
+        <p class="mt-0">
+          Attivando questo provider i tuoi utenti potranno accedere alla tua
+          applicazione tramite il proprio account Google.
+        </p>
+        <div class="flex justify-content-center">
+          <p-inputSwitch formControlName="is_google_active"></p-inputSwitch>
+        </div>
+        @if(is_google_active) {
+        <div class="flex flex-column gap-2 mb-4">
+          <label for="google_client_id">Client ID (for OAuth)</label>
+          <input
+            pInputText
+            id="google_client_id"
+            aria-describedby="google_client_id-help"
+            formControlName="google_client_id"
+          />
+          <small id="google_client_id-help">
+            Client ID to use with the OAuth flow on the web.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2 mb-4">
+          <label for="google_client_id">Client Secret (for OAuth) </label>
+          <input
+            pInputText
+            type="password"
+            id="google_secret_id"
+            aria-describedby="google_secret_id-help"
+            formControlName="google_secret_id"
+          />
+          <small id="google_secret_id-help">
+            Client Secret to use with the OAuth flow on the web.
+          </small>
+        </div>
+        }
+      </p-accordionTab>
+      <!-- FACEBOOK -->
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center w-full justify-content-bewteen">
+            <span class="flex align-items-center gap-2">
+              <svg class="svg-icon">
+                <path
+                  d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"
+                />
+              </svg>
+              Facebook
+            </span>
+          </span>
+        </ng-template>
+        <p class="mt-0">
+          Attivando questo provider i tuoi utenti potranno accedere alla tua
+          applicazione tramite il proprio account Facebook.
+        </p>
+        <div class="flex justify-content-center">
+          <p-inputSwitch formControlName="is_facebook_active"></p-inputSwitch>
+        </div>
+        @if(is_facebook_active) {
+        <div class="flex flex-column gap-2 mb-4">
+          <label for="facebook_client_id">Facebook client ID</label>
+          <input
+            pInputText
+            id="facebook_client_id"
+            aria-describedby="facebook_client_id-help"
+            formControlName="facebook_client_id"
+          />
+          <small id="facebook_client_id-help">
+            Client ID to use with the OAuth flow on the web.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2 mb-4">
+          <label for="facebook_client_id">Facebook secret</label>
+          <input
+            pInputText
+            type="password"
+            id="facebook_secret_id"
+            aria-describedby="facebook_secret_id-help"
+            formControlName="facebook_secret_id"
+          />
+          <small id="facebook_secret_id-help">
+            Client Secret to use with the OAuth flow on the web.
+          </small>
+        </div>
+        }
+      </p-accordionTab>
+      <!-- TWITCH -->
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center w-full justify-content-bewteen">
+            <span class="flex align-items-center gap-2">
+              <svg class="svg-icon">
+                <path
+                  d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"
+                />
+              </svg>
+              Twitch
+            </span>
+          </span>
+        </ng-template>
+        <p class="mt-0">
+          Attivando questo provider i tuoi utenti potranno accedere alla tua
+          applicazione tramite il proprio account Twitch.
+        </p>
+        <div class="flex justify-content-center">
+          <p-inputSwitch formControlName="is_twitch_active"></p-inputSwitch>
+        </div>
+        @if(is_twitch_active) {
+        <div class="flex flex-column gap-2 mb-4">
+          <label for="twitch_client_id">Client ID</label>
+          <input
+            pInputText
+            id="twitch_client_id"
+            aria-describedby="twitch_client_id-help"
+            formControlName="twitch_client_id"
+          />
+          <small id="twitch_client_id-help">
+            Client ID to use with the OAuth flow on the web.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2 mb-4">
+          <label for="twitch_client_id">Client secret</label>
+          <input
+            pInputText
+            type="password"
+            id="twitch_secret_id"
+            aria-describedby="twitch_secret_id-help"
+            formControlName="twitch_secret_id"
+          />
+          <small id="twitch_secret_id-help">
+            Client Secret to use with the OAuth flow on the web.
+          </small>
+        </div>
+        }
+      </p-accordionTab>
+    </p-accordion>
+  </p-card>
+</form>
+<div class="flex justify-content-end mt-4">
+  <p-button
+    label="Save"
+    (click)="onSave()"
+    [disabled]="!projectForm.valid"
+  ></p-button>
+</div>
